@@ -4,16 +4,25 @@ import { Checkbox } from '@alfalab/core-components/checkbox';
 import { Collapse } from '@alfalab/core-components/collapse';
 import { Gap } from '@alfalab/core-components/gap';
 import { Input } from '@alfalab/core-components/input';
+import { List } from '@alfalab/core-components/list';
 import { PureCell } from '@alfalab/core-components/pure-cell';
 import { Steps } from '@alfalab/core-components/steps';
 import { Tag } from '@alfalab/core-components/tag';
 import { Typography } from '@alfalab/core-components/typography';
+import { CheckmarkMIcon } from '@alfalab/icons-glyph/CheckmarkMIcon';
 import { ChevronDownMIcon } from '@alfalab/icons-glyph/ChevronDownMIcon';
 import { ChevronUpMIcon } from '@alfalab/icons-glyph/ChevronUpMIcon';
 import { OutsideMIcon } from '@alfalab/icons-glyph/OutsideMIcon';
 import { useEffect, useState } from 'react';
 import { Swiper, SwiperSlide } from 'swiper/react';
+import img1 from './assets/1.png';
+import img2 from './assets/2.png';
+import img3 from './assets/3.png';
+import img4 from './assets/4.png';
+import img5 from './assets/5.png';
+import img6 from './assets/6.png';
 import hb from './assets/hb.png';
+import pds from './assets/pds.png';
 import pers from './assets/pers.png';
 import piec from './assets/piec.png';
 import rubd from './assets/rubd.png';
@@ -23,6 +32,46 @@ import { appSt } from './style.css';
 import { ThxLayout } from './thx/ThxLayout';
 import { sendDataToGACalc } from './utils/events';
 import { round } from './utils/round';
+
+const slides = [
+  {
+    title: 'Получать пассивный доход от накоплений',
+    img: img1,
+  },
+  {
+    title: 'Накопить на образование детей',
+    img: img2,
+  },
+  {
+    title: 'Выйти на пенсию досрочно',
+    img: img3,
+  },
+  {
+    title: (
+      <>
+        Больше
+        <br />
+        путешествовать
+      </>
+    ),
+    img: img4,
+  },
+  {
+    title: 'Купить дом и жить у моря на пенсии',
+    img: img5,
+  },
+  {
+    title: 'Создать начальный капитал для детей',
+    img: img6,
+  },
+];
+
+const checks = [
+  'Застрахованы на сумму до 2,8 млн ₽ в Агентстве по страхованию вкладов',
+  'Полностью наследуются на этапе накопления или выплат (кроме назначения пожизненной выплаты)',
+  'Не делятся при разводе, на них не может быть наложено взыскание и арест',
+  'Негосударственный пенсионный фонд (НПФ) гарантирует безубыточность вложений на горизонте каждых пяти лет',
+];
 
 const chipsIncome = [
   {
@@ -110,11 +159,11 @@ export const App = () => {
     window.gtag('event', '4891_confirm_var1');
     setLoading(true);
 
-    LS.setItem(LSKeys.ShowThx, true);
+    // LS.setItem(LSKeys.ShowThx, true);
     setLoading(false);
-    window.location.replace(
-      'alfabank://multistep-route?fromModule=FORM&stepNumber=0&alias=invest-long-term-savings-open-alias&prefilledDataID=1001&version=2',
-    );
+    // window.location.replace(
+    //   'alfabank://multistep-route?fromModule=FORM&stepNumber=0&alias=invest-long-term-savings-open-alias&prefilledDataID=1001&version=2',
+    // );
   };
 
   const handleBlurInputCalc1 = () => {
@@ -158,13 +207,49 @@ export const App = () => {
   return (
     <>
       <div className={appSt.container}>
-        <img src={hb} alt="hb" width="100%" height={226} className={appSt.img} />
-        <Typography.TitleResponsive tag="h1" view="large" font="system" weight="semibold">
-          Программа долгосрочных сбережений
+        <div className={appSt.hbBox}>
+          <Typography.TitleResponsive tag="h1" view="large" font="system" weight="semibold">
+            Программа долгосрочных сбережений
+          </Typography.TitleResponsive>
+          <Typography.Text>Откладывайте с выгодой</Typography.Text>
+          <img src={hb} alt="hb" width="100%" height={144} className={appSt.img} />
+
+          <div className={appSt.hbBoxText}>
+            <Typography.Text view="primary-medium">Более 2 млн пользователей за 2024 оформили ПДС</Typography.Text>
+          </div>
+        </div>
+
+        <div>
+          <Typography.TitleResponsive tag="h2" view="small" font="system" weight="medium" style={{ marginBottom: '.5rem' }}>
+            Описание программы:
+          </Typography.TitleResponsive>
+          <Typography.Text view="primary-medium">
+            ПДС — это новый инструмент, который даёт сразу несколько возможностей умножить накопления
+          </Typography.Text>
+        </div>
+
+        <div>
+          <Typography.TitleResponsive tag="h2" view="small" font="system" weight="medium" style={{ marginBottom: '1rem' }}>
+            Копите на любые цели и мечты
+          </Typography.TitleResponsive>
+
+          <Swiper spaceBetween={12} slidesPerView="auto">
+            {slides.map((slide, index) => (
+              <SwiperSlide key={index} className={appSt.swSlide}>
+                <div className={appSt.slideContainer}>
+                  <img src={slide.img} width={212} height={114} alt="" style={{ marginTop: '-32px' }} />
+                  <Typography.Text view="primary-small" weight="bold" style={{ margin: '0 16px 16px' }}>
+                    {slide.title}
+                  </Typography.Text>
+                </div>
+              </SwiperSlide>
+            ))}
+          </Swiper>
+        </div>
+
+        <Typography.TitleResponsive tag="h2" view="small" font="system" weight="medium">
+          Плюсы программы:
         </Typography.TitleResponsive>
-        <Typography.Text>
-          Откладывайте с выгодой: получите процент на вклад, поддержку от государства и налоговый вычет
-        </Typography.Text>
 
         <PureCell>
           <PureCell.Graphics verticalAlign="center">
@@ -173,10 +258,10 @@ export const App = () => {
           <PureCell.Content>
             <PureCell.Main>
               <Typography.Text view="primary-medium" tag="p" defaultMargins={false}>
-                Доходность
+                До 360 000 ₽
               </Typography.Text>
               <Typography.Text view="primary-small" color="secondary">
-                21,56% годовых
+                Добавит государство после вступления в программу
               </Typography.Text>
             </PureCell.Main>
           </PureCell.Content>
@@ -189,10 +274,10 @@ export const App = () => {
           <PureCell.Content>
             <PureCell.Main>
               <Typography.Text view="primary-medium" tag="p" defaultMargins={false}>
-                Софинансирование
+                До 1 320 000 ₽
               </Typography.Text>
               <Typography.Text view="primary-small" color="secondary">
-                до 36 000 ₽ в год
+                Можно получить за счёт налогового вычета
               </Typography.Text>
             </PureCell.Main>
           </PureCell.Content>
@@ -205,10 +290,10 @@ export const App = () => {
           <PureCell.Content>
             <PureCell.Main>
               <Typography.Text view="primary-medium" tag="p" defaultMargins={false}>
-                Налоговый вычет
+                21,56% годовых
               </Typography.Text>
               <Typography.Text view="primary-small" color="secondary">
-                от 13% до 22% от суммы взносов, до 88 000 ₽ в год
+                Инвестиционный доход за 2024 год
               </Typography.Text>
             </PureCell.Main>
           </PureCell.Content>
@@ -220,10 +305,10 @@ export const App = () => {
           <PureCell.Content>
             <PureCell.Main>
               <Typography.Text view="primary-medium" tag="p" defaultMargins={false}>
-                Накопления под защитой
+                Деньги под защитой
               </Typography.Text>
               <Typography.Text view="primary-small" color="secondary">
-                На сумму до 2 800 000 ₽
+                Застрахованы на сумму до 2,8 млн ₽
               </Typography.Text>
             </PureCell.Main>
           </PureCell.Content>
@@ -246,6 +331,7 @@ export const App = () => {
             block
             view="secondary"
             shape="rectangular"
+            size={40}
           >
             Посчитать
           </ButtonMobile>
@@ -291,6 +377,102 @@ export const App = () => {
             </Typography.Text>
           </span>
         </Steps>
+
+        <PureCell className={appSt.pds}>
+          <PureCell.Content>
+            <PureCell.Main>
+              <Typography.Text
+                view="primary-small"
+                weight="bold"
+                tag="p"
+                defaultMargins={false}
+                style={{ marginBottom: '0.25rem' }}
+              >
+                Альфа-Вклад с ПДС
+              </Typography.Text>
+              <Typography.Text view="secondary-large">
+                Получите повышенную ставку по вкладу с программой долгосрочных сбережений
+              </Typography.Text>
+            </PureCell.Main>
+          </PureCell.Content>
+          <PureCell.Graphics verticalAlign="center">
+            <img src={pds} width={90} height={74} alt="pds" />
+          </PureCell.Graphics>
+        </PureCell>
+
+        <div>
+          <Typography.TitleResponsive tag="h3" view="small" font="system" weight="medium" style={{ marginBottom: '.5rem' }}>
+            Деньги под защитой
+          </Typography.TitleResponsive>
+          {checks.map((check, index) => (
+            <PureCell key={index} verticalPadding="compact">
+              <PureCell.Graphics verticalAlign="center">
+                <CheckmarkMIcon color="#0D9336" />
+              </PureCell.Graphics>
+              <PureCell.Content>
+                <PureCell.Main>
+                  <Typography.Text view="primary-medium">{check}</Typography.Text>
+                </PureCell.Main>
+              </PureCell.Content>
+            </PureCell>
+          ))}
+        </div>
+
+        <div>
+          <Typography.TitleResponsive tag="h3" view="small" font="system" weight="medium" style={{ marginBottom: '1rem' }}>
+            Какие бывают выплаты
+          </Typography.TitleResponsive>
+
+          <div className={appSt.blueBox}>
+            <Typography.TitleResponsive tag="h4" view="xsmall" font="system" weight="semibold">
+              Единовременно
+            </Typography.TitleResponsive>
+            <List tag="ol" colorMarker="accent">
+              <List.Item>
+                <Typography.Text view="primary-small">Через 15 лет после того, как вступили в программу</Typography.Text>
+              </List.Item>
+              <List.Item>
+                <Typography.Text view="primary-small">
+                  При достижении 55 лет у женщин и 60 лет у мужчин, если с начала участия прошло менее 15 лет, а выплата —
+                  менее 10% прожиточного минимума.
+                </Typography.Text>
+              </List.Item>
+            </List>
+          </div>
+
+          <Gap size={16} />
+
+          <div className={appSt.blueBox}>
+            <Typography.TitleResponsive tag="h4" view="xsmall" font="system" weight="semibold">
+              Регулярно
+            </Typography.TitleResponsive>
+            <Typography.Text view="primary-small">
+              Все накопления делят на ежемесячные выплаты, период вы выбираете сами — от 5 лет:
+            </Typography.Text>
+            <Typography.Text view="primary-small">
+              <b>Срочные.</b> Доступны через 15 лет после вступления в программу долгосрочных сбережений
+            </Typography.Text>
+            <Typography.Text view="primary-small">
+              <b>Дополнительные выплаты на пенсии.</b> Доступны после 55 лет у женщин и 60 — у мужчин
+            </Typography.Text>
+          </div>
+          <Gap size={16} />
+
+          <div className={appSt.blueBox}>
+            <Typography.TitleResponsive tag="h4" view="xsmall" font="system" weight="semibold">
+              Досрочно
+            </Typography.TitleResponsive>
+            <Typography.Text view="primary-small">
+              Такая выплата доступна в случае потери кормильца или если необходимо оплатить{' '}
+              <span
+                style={{ textDecoration: 'underline' }}
+                onClick={() => window.location.replace('http://publication.pravo.gov.ru/document/0001202312010067')}
+              >
+                дорогостоящее лечение
+              </span>
+            </Typography.Text>
+          </div>
+        </div>
 
         <Typography.TitleResponsive tag="h3" view="small" font="system" weight="medium">
           Частые вопросы
