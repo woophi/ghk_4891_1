@@ -74,6 +74,9 @@ const swSlide = style({
   width: '212px',
   height: '186px',
 });
+const swSlideCalc = style({
+  width: 'min-content',
+});
 
 const slideContainer = style({
   marginTop: '32px',
@@ -125,4 +128,5 @@ export const appSt = {
   slideContainer,
   pds,
   blueBox,
+  swSlideCalc,
 };

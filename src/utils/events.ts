@@ -7,37 +7,6 @@ declare global {
   }
 }
 
-type Payload = {
-  autopayments: 1 | 0;
-  limit: 1 | 0;
-  limit_sum: number;
-  insurance: 1 | 0;
-  email: 1 | 0;
-};
-
-export const sendDataToGA = async (payload: Payload) => {
-  try {
-    const now = new Date();
-    const date = `${now.getFullYear()}-${
-      now.getMonth() + 1
-    }-${now.getDate()} ${now.getHours()}:${now.getMinutes()}:${now.getSeconds()}`;
-
-    await fetch(
-      'https://script.google.com/macros/s/AKfycbxcHgrbrpJDGqapkLM5baYBX40Q4CotD5cxxU-4_mdpm86bxbBXSESz1AkW_G-ubZWb/exec',
-      {
-        redirect: 'follow',
-        method: 'POST',
-        body: JSON.stringify({ date, ...payload, variant: 'variant1', id: LS.getItem(LSKeys.UserId, 0) }),
-        headers: {
-          'Content-Type': 'text/plain;charset=utf-8',
-        },
-      },
-    );
-  } catch (error) {
-    console.error('Error!', error);
-  }
-};
-
 type CalcPayload = {
   calc: string;
 };
@@ -50,11 +19,11 @@ export const sendDataToGACalc = async (payload: CalcPayload) => {
     }-${now.getDate()} ${now.getHours()}:${now.getMinutes()}:${now.getSeconds()}`;
 
     await fetch(
-      'https://script.google.com/macros/s/AKfycbwt9MSkE3EyOQRX2WCBMDsTYsD0EjwMmo3EqLkiO-dxh8Ci_X5ZTJ8MvW0jVBAcDoceLw/exec',
+      'https://script.google.com/macros/s/AKfycbzpxdUM9Ochd9gpCRBsPF03itrhzUa4G82CH4xHU5Zb7qwpB5VVWzCw7rpZdpKURO0M/exec',
       {
         redirect: 'follow',
         method: 'POST',
-        body: JSON.stringify({ date, ...payload, id: LS.getItem(LSKeys.UserId, 0) }),
+        body: JSON.stringify({ date, ...payload, id: LS.getItem(LSKeys.UserId, 0), vari: 'var1' }),
         headers: {
           'Content-Type': 'text/plain;charset=utf-8',
         },

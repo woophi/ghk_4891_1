@@ -366,6 +366,7 @@ export const App = () => {
               view="primary-small"
               color="secondary"
               onClick={() => {
+                window.gtag('event', '4891_income_var1');
                 window.location.replace('alfabank://longread?endpoint=v1/adviser/longreads/46688');
               }}
               style={{
@@ -604,7 +605,7 @@ export const App = () => {
 
             <Swiper spaceBetween={12} slidesPerView="auto" style={{ marginTop: '12px' }}>
               {chipsIncome.map(chip => (
-                <SwiperSlide key={chip.value} className={appSt.swSlide}>
+                <SwiperSlide key={chip.value} className={appSt.swSlideCalc}>
                   <Tag
                     view="filled"
                     size="xxs"
